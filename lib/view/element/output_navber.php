@@ -18,12 +18,14 @@
 				<li class="nav-item"><a class="text-white nav-link" href="./top.php">ホーム</a></li>
 				<li class="nav-item"><a class="text-white nav-link"
 					href="./cart.php">カート</a></li>
+<?php // セッションのユーザーに値がなければ、ログインへのアクセスを出す。値があればログアウトへのアクセスを出す。 ?>
 <?php if (empty($_SESSION['user'])) { ?>
 				<li class="nav-item"><a class="text-white nav-link"
 					href="./login.php">ログイン</a></li>
 <?php } else { ?>
 				<li class="nav-item"><a class="text-white nav-link"
 					href="./logout.php">ログアウト</a></li>
+<?php // セッションのユーザーが管理者であった場合は管理ページへのアクセスを出す。 ?>
 <?php if (!empty($_SESSION['user']['is_admin'])) { ?>
 				<li class="nav-item"><a class="text-white nav-link"
 					href="./admin.php">管理</a></li>
