@@ -11,6 +11,7 @@
  * @param string $password
  * @return NULL|array
  */
+
 function user_get_login($db, $login_id, $password) {
     $sql ='SELECT id, login_id, password, is_admin, create_date, update_date
     FROM users WHERE login_id = ? AND password = ?';

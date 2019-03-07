@@ -9,6 +9,7 @@
  * @return PDO
  */
 
+
  // データベースへの接続
 function db_connect() {
 	$dsn = 'mysql:charset=utf8;dbname=' . DB_NAME . ';host=' . DB_HOST;
