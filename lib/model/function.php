@@ -8,12 +8,15 @@
 /**
  * @return PDO
  */
+
+ // データベースへの接続
 function db_connect() {
 	$dsn = 'mysql:charset=utf8;dbname=' . DB_NAME . ';host=' . DB_HOST;
 
 	try {
 		$db = new PDO($dsn, DB_USER, DB_PASS);
-		$db->exec("SET NAMES 'UTF8'");
+		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+		$db->setAttribute(PDO::ATTR_EMULATE_PREPARES.false);
 	} catch (PDOException $e) {
 		die('db error: ' . $e->getMessage());
 	}
@@ -27,6 +30,7 @@ function db_connect() {
  * @param string $sql
  * @return array
  */
+  //
 function db_select(PDO $db, $sql) {
 	$result = $db->query($sql);
 	if ($result->rowCount() === 0) {
@@ -113,6 +117,7 @@ function save_upload_file($dir, $varname, &$errors) {
 /**
  * @param PDO $db
  */
+ // セッションのにuserの値が入っていなければlogin.phpへ
 function check_logined($db) {
 	if (empty($_SESSION['user'])) {
 		header('Location: ./login.php');

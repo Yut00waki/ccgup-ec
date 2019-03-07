@@ -12,11 +12,13 @@
  * @return NULL|array
  */
 function user_get_login($db, $login_id, $password) {
-	$sql = <<<EOD
- SELECT id, login_id, password, is_admin, create_date, update_date
- FROM users
- WHERE login_id = '{$login_id}' AND password = sha1('{$password}')
-EOD;
+    $sql ='SELECT id, login_id, password, is_admin, create_date, update_date
+    FROM users WHERE login_id = ? AND password = ?';
+    $stmt=$db->prepare($sql);
+    $stmt->bindValue(1,$login_id,PARAM_STR);
+    $stmt->bindValue(2,$password,PARAM_STR);
+    $stmt->execute();
+
 	return db_select_one($db, $sql);
 }
 
