@@ -8,6 +8,7 @@
 /**
  * @return PDO
  */
+// データベースへの接続。
 function db_connect() {
 	$dsn = 'mysql:charset=utf8;dbname=' . DB_NAME . ';host=' . DB_HOST;
 
@@ -27,6 +28,7 @@ function db_connect() {
  * @param string $sql
  * @return array
  */
+// 送られてきたSQL文の実行。
 function db_select(PDO $db, $sql) {
 	$result = $db->query($sql);
 	if ($result->rowCount() === 0) {
@@ -41,6 +43,7 @@ function db_select(PDO $db, $sql) {
  * @param string $sql
  * @return NULL|mixed
  */
+// user.phpにおいて作られたSQL文を実行し該当するユーザー情報を配列$rowsに格納。$rowsの値がなければnullを返す。
 function db_select_one(PDO $db, $sql) {
 	$rows = db_select($db, $sql);
 	if (empty($rows)) {
@@ -71,7 +74,7 @@ function is_number($value) {
 	$pattern = '/^[0-9]+$/';
 	return (bool)preg_match($pattern, $value);
 }
-
+// POSTで送られてきたファイルを一時保存ファイルにあるかチェックし、拡張子が該当するか確認。ユニークな名前の生成。
 function save_upload_file($dir, $varname, &$errors) {
 
 	if (is_uploaded_file($_FILES[$varname]['tmp_name']) === false) {

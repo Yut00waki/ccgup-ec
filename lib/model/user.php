@@ -11,6 +11,7 @@
  * @param string $password
  * @return NULL|array
  */
+// データベースからログインIDとパスワードが該当するユーザーのデータを選択する。
 function user_get_login($db, $login_id, $password) {
 	$sql = <<<EOD
  SELECT id, login_id, password, is_admin, create_date, update_date
@@ -25,6 +26,7 @@ EOD;
  * @param int $id
  * @return NULL|array
  */
+// データベースからIDが該当するユーザーのデータを選択する。
 function user_get($db, $id) {
 	$sql = <<<EOD
  SELECT id, login_id, password, is_admin, create_date, update_date
