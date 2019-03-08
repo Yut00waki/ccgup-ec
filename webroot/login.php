@@ -10,21 +10,24 @@ require_once DIR_MODEL . 'function.php';
 require_once DIR_MODEL . 'user.php';
 
 {
+    // セッションの開始、データベースへの接続呼び出し。
 	session_start();
 	$db = db_connect();
-
+    // 不明
 	$response = array();
 
 	__check_logined($db);
 	__login($db, $response);
-
+    // 不明
 	require_once DIR_VIEW  . 'login.php';
 }
 
 /**
  * @param PDO $db
  */
+//
 function __check_logined($db) {
+    // $_SESSION['user']が空であればリターン？する。
 	if (empty($_SESSION['user'])) {
 		return;
 	}

@@ -117,13 +117,14 @@ function save_upload_file($dir, $varname, &$errors) {
  * @param PDO $db
  */
 function check_logined($db) {
+    // セッションのuserが空であればlogin.phpへ移動。
 	if (empty($_SESSION['user'])) {
 		header('Location: ./login.php');
 		exit;
 	}
 
 	require_once DIR_MODEL . 'user.php';
-
+	// user.phpの関数を実行し抽出したuserデータが空であればlogout.phpへ移動。
 	$user = user_get($db, $_SESSION['user']['id']);
 	if (empty($user)) {
 		header('Location: ./logout.php');
