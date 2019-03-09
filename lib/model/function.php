@@ -18,6 +18,7 @@ function db_connect() {
 		$db = new PDO($dsn, DB_USER, DB_PASS);
 		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 		$db->setAttribute(PDO::ATTR_EMULATE_PREPARES.false);
+
 	} catch (PDOException $e) {
 		die('db error: ' . $e->getMessage());
 	}
@@ -32,8 +33,8 @@ function db_connect() {
  * @return array
  */
   //
-function db_select(PDO $db, $sql) {
-	$result = $db->query($sql);
+function db_select(PDO $db, $sql, $stmt) {
+	$result = $stmt->execute();
 	if ($result->rowCount() === 0) {
 		return array();
 	}
@@ -46,8 +47,8 @@ function db_select(PDO $db, $sql) {
  * @param string $sql
  * @return NULL|mixed
  */
-function db_select_one(PDO $db, $sql) {
-	$rows = db_select($db, $sql);
+function db_select_one(PDO $db, $sql, $stmt) {
+	$rows = db_select($db, $sql, $stmt);
 	if (empty($rows)) {
 		return null;
 	}
@@ -118,7 +119,7 @@ function save_upload_file($dir, $varname, &$errors) {
 /**
  * @param PDO $db
  */
- // セッションのにuserの値が入っていなければlogin.phpへ
+ // セッションのにuserの値が入っていなければlogin.php。
 function check_logined($db) {
 	if (empty($_SESSION['user'])) {
 		header('Location: ./login.php');
