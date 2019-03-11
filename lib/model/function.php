@@ -33,12 +33,13 @@ function db_connect() {
  * @return array
  */
   //
-function db_select(PDO $db, $sql, $stmt) {
-	$result = $stmt->execute();
-	if ($result->rowCount() === 0) {
+function db_select($params, $sql, $db) {
+    $stmt=$db->prepare($sql);
+    $stmt->execute($params);
+	if ($stmt->rowCount() === 0) {
 		return array();
 	}
-	$rows = $result->fetchAll(PDO::FETCH_ASSOC);
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
 
@@ -47,8 +48,8 @@ function db_select(PDO $db, $sql, $stmt) {
  * @param string $sql
  * @return NULL|mixed
  */
-function db_select_one(PDO $db, $sql, $stmt) {
-	$rows = db_select($db, $sql, $stmt);
+function db_select_one($params, $sql, $db) {
+	$rows = db_select($params, $sql, $db);
 	if (empty($rows)) {
 		return null;
 	}

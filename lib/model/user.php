@@ -16,13 +16,16 @@ function user_get_login($db, $login_id, $password) {
     $sql = <<<EOM
     'SELECT id, login_id, password, is_admin, create_date, update_date
     FROM users
-    WHERE login_id = ? AND password = ?';
+    WHERE login_id = :login_id AND password = :password';
     EOM;
-    $stmt=$db->prepare($sql);
-    $stmt->bindValue(1,$login_id,PARAM_STR);
-    $stmt->bindValue(2,$password,PARAM_STR);
-
-	return db_select_one($db, $sql,$stmt);
+ /* $stmt->bindValue('login_id',$login_id,PARAM_STR);
+    $stmt->bindValue('password',$password,PARAM_STR);  */
+    $params = array(
+        'login_id' => $login_id,
+        'password' => $password
+    );
+ //   $stmt->execute($params);
+	return db_select_one($params, $sql, $db);
 }
 
 /**
