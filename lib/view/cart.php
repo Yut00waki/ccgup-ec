@@ -47,31 +47,31 @@
 <?php foreach ( $response['cart_items'] as $key => $value ) {?>
 						<tr class="<?php echo (0 === ($key % 2)) ? 'stripe' : '' ; ?>">
 							<td rowspan="2"><img class="w-100"
-								src="<?php echo DIR_IMG . $value['img']; ?>"></td>
-							<td colspan="3"><?php echo $value['name']?></td>
+								src="<?php echo h(DIR_IMG . $value['img']); ?>"></td>
+							<td colspan="3"><?php echo h($value['name']); ?></td>
 						</tr>
 						<tr class="<?php echo (0 === ($key % 2)) ? 'stripe' : '' ; ?>">
 							<td>
 								<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 									<button type="submit" class="btn btn-danger btn-sm">削除</button>
 									<input type="hidden" name="id"
-										value="<?php echo $value['id']; ?>"> <input
+										value="<?php echo h($value['id']); ?>"> <input
 										type="hidden" name="action" value="delete">
 								</form>
 							</td>
-							<td><?php echo number_format($value['price'])?>円</td>
+							<td><?php echo number_format(h($value['price'])); ?>円</td>
 							<td>
-								<form id="form_select_amount<?php echo $value['id']; ?>"
+								<form id="form_select_amount<?php echo h($value['id']); ?>"
 									action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 									<select name="amount"
-										onchange="submit_change_amount(<?php echo $value['id']; ?>)">
+										onchange="submit_change_amount(<?php echo h($value['id']); ?>)">
 <?php $max_count = 10; if ((int)$value['amount'] > $max_count){$max_count = (int)$value['amount'];}; ?>
 <?php for ($count = 1; $count <= $max_count; $count++)  { ?>
 										<option value="<?php echo $count; ?>"
 											<?php if ((int)$value['amount'] === $count){echo 'selected';}; ?>><?php echo $count;?></option>
 <?php } ?>
                         </select> <input type="hidden" name="id"
-										value="<?php echo $value['id']; ?>"> <input
+										value="<?php echo h($value['id']); ?>"> <input
 										type="hidden" name="action" value="update">
 								</form>
 							</td>

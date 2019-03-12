@@ -47,13 +47,13 @@
 <?php foreach ( $response['cart_items'] as $key => $value ) {?>
 						<tr class="<?php echo (0 === ($key % 2)) ? 'stripe' : '' ; ?>">
 							<td rowspan="2"><img class="w-100"
-								src="<?php echo DIR_IMG . $value['img']; ?>"></td>
-							<td colspan="3"><?php echo $value['name']?></td>
+								src="<?php echo DIR_IMG . h($value['img']); ?>"></td>
+							<td colspan="3"><?php echo h($value['name']); ?></td>
 						</tr>
 						<tr class="<?php echo (0 === ($key % 2)) ? 'stripe' : '' ; ?>">
-							<td><?php echo number_format($value['price'])?>円</td>
-							<td><?php echo number_format($value['amount'])?>個</td>
-							<td><?php echo number_format($value['amount_price'])?>円</td>
+							<td><?php echo number_format(h($value['price']))?>円</td>
+							<td><?php echo number_format(h($value['amount']))?>個</td>
+							<td><?php echo number_format(h($value['amount_price']))?>円</td>
 						</tr>
 <?php } ?>
 					</tbody>
