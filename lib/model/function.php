@@ -17,7 +17,7 @@ function db_connect() {
 	try {
 		$db = new PDO($dsn, DB_USER, DB_PASS);
 		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-		$db->setAttribute(PDO::ATTR_EMULATE_PREPARES.false);
+		$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 
 	} catch (PDOException $e) {
 		die('db error: ' . $e->getMessage());
