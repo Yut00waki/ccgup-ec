@@ -37,8 +37,10 @@ function user_get($db, $id) {
 	$sql = <<<EOD
  SELECT id, login_id, password, is_admin, create_date, update_date
  FROM users
- WHERE id = {$id}
+ WHERE id = ?
 EOD;
-
-	return db_select_one($db, $sql);
+    $params = array(
+        $id
+    );
+	return db_select_one($params, $db, $sql);
 }

@@ -63,10 +63,12 @@ function item_get($db, $id) {
 	$sql = <<<EOD
  SELECT id, name, price, img, stock, status, create_date, update_date
  FROM items
- WHERE id = {$id}
+ WHERE id = ?
 EOD;
-
-	return db_select_one($db, $sql);
+	$params = array(
+	    $id
+	);
+	return db_select_one($params, $db, $sql);
 }
 
 /**
