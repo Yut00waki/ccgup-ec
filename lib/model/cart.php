@@ -18,7 +18,7 @@ WHERE user_id = ? AND item_id = ?
 EOD;
     $params = array(
         $user_id,
-        $items_id
+        $item_id
     );
     $cart = db_select($db, $sql, $params);
 	return empty($cart) === false;
