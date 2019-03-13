@@ -51,7 +51,7 @@ EOD;
 		$sql .= " WHERE status = 1";
 	}
     $params = array();
-    return db_select($db, $sql, $params);
+    return db_select($sql, $db, $params);
 }
 
 /**
@@ -68,7 +68,7 @@ EOD;
 	$params = array(
 	    $id
 	);
-	return db_select_one($db, $sql, $params);
+	return db_select_one($sql, $db, $params);
 }
 
 /**

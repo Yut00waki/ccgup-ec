@@ -39,7 +39,7 @@ EOD;
 	$params = array(
 	    $user_id
 	);
-	$row = db_select_one($db, $sql, $params);
+	$row = db_select_one($sql, $db, $params);
 	if (empty($row)) {
 		return null;
 	}
@@ -61,7 +61,7 @@ EOD;
 	$params = array(
 	    $user_id
 	);
-	return db_select($db, $sql, $params);
+	return db_select($sql, $db, $params);
 }
 
 /**

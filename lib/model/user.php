@@ -42,5 +42,5 @@ EOD;
     $params = array(
         $id
     );
-    return db_select_one($db, $sql, $params);
+    return db_select_one($sql, $db, $params);
 }
