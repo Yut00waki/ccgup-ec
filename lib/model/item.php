@@ -50,8 +50,8 @@ EOD;
 	if ($is_active_only) {
 		$sql .= " WHERE status = 1";
 	}
-    $params = '';
-	return db_select($params, $db, $sql);
+    $params = array();
+    return db_select($db, $sql, $params);
 }
 
 /**
@@ -68,7 +68,7 @@ EOD;
 	$params = array(
 	    $id
 	);
-	return db_select_one($params, $db, $sql);
+	return db_select_one($db, $sql, $params);
 }
 
 /**

@@ -25,7 +25,7 @@ function user_get_login($db, $login_id, $password) {
         'password' => $password
     );
  //   $stmt->execute($params);
-	return db_select_one($params, $sql, $db);
+    return db_select_one($sql, $db, $params);
 }
 
 /**
@@ -42,5 +42,5 @@ EOD;
     $params = array(
         $id
     );
-	return db_select_one($params, $db, $sql);
+    return db_select_one($db, $sql, $params);
 }

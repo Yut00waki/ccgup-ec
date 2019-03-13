@@ -20,7 +20,7 @@ EOD;
         $user_id,
         $items_id
     );
-	$cart = db_select($params, $db, $sql);
+    $cart = db_select($db, $sql, $params);
 	return empty($cart) === false;
 }
 
@@ -39,7 +39,7 @@ EOD;
 	$params = array(
 	    $user_id
 	);
-	$row = db_select_one($params, $db, $sql);
+	$row = db_select_one($db, $sql, $params);
 	if (empty($row)) {
 		return null;
 	}
@@ -61,7 +61,7 @@ EOD;
 	$params = array(
 	    $user_id
 	);
-	return db_select($params, $db, $sql);
+	return db_select($db, $sql, $params);
 }
 
 /**
@@ -82,7 +82,7 @@ EOD;
 	} else {
 		$sql = <<<EOD
 INSERT INTO carts (user_id, item_id, amount, create_date, update_date)
-VALUES ({$user_id}, {$item_id}), 1, NOW(), NOW())
+VALUES ({$user_id}, {$item_id}, 1, NOW(), NOW())
 EOD;
 	}
 	return db_update($db, $sql);

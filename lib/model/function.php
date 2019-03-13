@@ -33,7 +33,7 @@ function db_connect() {
  * @return array
  */
   //
-function db_select($params, $sql, $db) {
+function db_select($sql, $db, $params) {
     $stmt=$db->prepare($sql);
     $stmt->execute($params);
 	if ($stmt->rowCount() === 0) {
@@ -48,8 +48,8 @@ function db_select($params, $sql, $db) {
  * @param string $sql
  * @return NULL|mixed
  */
-function db_select_one($params, $sql, $db) {
-	$rows = db_select($params, $sql, $db);
+function db_select_one($sql, $db, $params) {
+    $rows = db_select($sql, $db, $params);
 	if (empty($rows)) {
 		return null;
 	}
