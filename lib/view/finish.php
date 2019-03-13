@@ -51,9 +51,9 @@
 							<td colspan="3"><?php echo h($value['name']); ?></td>
 						</tr>
 						<tr class="<?php echo (0 === ($key % 2)) ? 'stripe' : '' ; ?>">
-							<td><?php echo number_format(h($value['price']))?>円</td>
-							<td><?php echo number_format(h($value['amount']))?>個</td>
-							<td><?php echo number_format(h($value['amount_price']))?>円</td>
+							<td><?php echo number_format(h($value['price'])); ?>円</td>
+							<td><?php echo number_format(h($value['amount'])); ?>個</td>
+							<td><?php echo number_format(h($value['amount_price'])); ?>円</td>
 						</tr>
 <?php } ?>
 					</tbody>

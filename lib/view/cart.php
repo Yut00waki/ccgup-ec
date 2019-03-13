@@ -45,7 +45,7 @@
 					</thead>
 					<tbody>
 <?php foreach ( $response['cart_items'] as $key => $value ) {?>
-						<tr class="<?php echo (0 === ($key % 2)) ? 'stripe' : '' ; ?>">
+						<tr class="<?php echo h(0 === ($key % 2)) ? 'stripe' : '' ; ?>">
 							<td rowspan="2"><img class="w-100"
 								src="<?php echo h(DIR_IMG . $value['img']); ?>"></td>
 							<td colspan="3"><?php echo h($value['name']); ?></td>
@@ -65,7 +65,7 @@
 									action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 									<select name="amount"
 										onchange="submit_change_amount(<?php echo h($value['id']); ?>)">
-<?php $max_count = 10; if ((int)$value['amount'] > $max_count){$max_count = (int)$value['amount'];}; ?>
+<?php $max_count = 10; if ((int)h($value['amount']) > $max_count){$max_count = (int)h($value['amount']);}; ?>
 <?php for ($count = 1; $count <= $max_count; $count++)  { ?>
 										<option value="<?php echo $count; ?>"
 											<?php if ((int)$value['amount'] === $count){echo 'selected';}; ?>><?php echo $count;?></option>
