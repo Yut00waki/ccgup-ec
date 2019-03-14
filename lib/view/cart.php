@@ -52,7 +52,7 @@
 						</tr>
 						<tr class="<?php echo h((0 === ($key % 2)) ? 'stripe' : '' ); ?>">
 							<td>
-								<form action="<?php echo h($_SERVER['SCRIPT_FILENAME']) ?>" method="post">
+								<form action="<?php echo h($_SERVER['SCRIPT_NAME']) ?>" method="post">
 									<button type="submit" class="btn btn-danger btn-sm">削除</button>
 									<input type="hidden" name="id"
 										value="<?php echo h($value['id']); ?>"> <input
