@@ -105,9 +105,9 @@
 								<tr
 									class="<?php echo h((0 === ($key % 2)) ? 'stripe' : '' ); ?> <?php echo h(('1' !== $item['status']) ? 'disable' : '' ); ?>">
 									<td rowspan="2"><img class="w-100"
-										src="<?php echo DIR_IMG . h($item['img']); ?>"></td>
+										src="<?php echo h(DIR_IMG . $item['img']); ?>"></td>
 									<td><?php echo h($item['name']); ?></td>
-									<td><?php echo number_format(h($item['price'])); ?>円</td>
+									<td><?php echo h(number_format($item['price'])); ?>円</td>
 									<td>
 										<form method="post">
 											<input type="hidden" name="id"
@@ -124,7 +124,7 @@
 									</td>
 								</tr>
 								<tr
-									class="<?php echo h((0 === ($key % 2)) ? 'stripe' : ''); ?> <?php echo h(('1' !== $item['status']) ? 'disable' : '' ); ?>">
+									class="<?php echo h((0 === ($key % 2) ? 'stripe' : '')); ?> <?php echo h(('1' !== $item['status']) ? 'disable' : '' ); ?>">
 									<td colspan="2">
 										<form method="post" class="form-inline">
 											<input type="hidden" name="id"
