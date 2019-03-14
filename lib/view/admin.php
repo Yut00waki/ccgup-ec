@@ -124,7 +124,7 @@
 									</td>
 								</tr>
 								<tr
-									class="<?php echo h((0 === ($key % 2) ? 'stripe' : '')); ?> <?php echo h(('1' !== $item['status']) ? 'disable' : '' ); ?>">
+									class="<?php echo h((0 === ($key % 2)) ? 'stripe' : ''); ?> <?php echo h(('1' !== $item['status']) ? 'disable' : '' ); ?>">
 									<td colspan="2">
 										<form method="post" class="form-inline">
 											<input type="hidden" name="id"
