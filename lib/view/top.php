@@ -39,7 +39,7 @@
 						<div class="col-12 mt-1">
 <?php // 在庫数量が０以上であれば、それ以外であればの条件指定。 ?>
 <?php if ($value['stock'] > 0) { ?>
-							<form action="<?php echo h($_SERVER['SCRIPT_FILENAME']) ?>" method="post">
+							<form action="<?php echo h($_SERVER['SCRIPT_FILENAME']); ?>" method="post">
 								<input type="hidden" name="id"
 									value="<?php echo h($value['id']); ?>">
 								<button type="submit" class="btn btn-primary cart-btn">カートに入れる</button>
