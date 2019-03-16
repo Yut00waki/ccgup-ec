@@ -127,3 +127,24 @@ function check_logined($db) {
 		exit;
 	}
 }
+
+function make_token() {
+    if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+        return;
+    }
+
+    $token = sha1(uniqid(mt_rand(), true));
+    $_SESSION['token'] = $token;
+}
+
+function check_token() {
+    if (empty($_POST['token'])) {
+        return false;
+    }
+
+    if (empty($_SESSION['token'])) {
+        return false;
+    }
+
+    return $_SESSION['token'] === $_POST['token'];
+}

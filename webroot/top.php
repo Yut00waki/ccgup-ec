@@ -12,6 +12,7 @@ require_once DIR_MODEL . 'item.php';
 
 {
 	session_start();
+    make_token();
 
 	$db = db_connect();
 	$response = array();
