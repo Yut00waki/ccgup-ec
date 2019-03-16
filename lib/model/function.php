@@ -145,6 +145,7 @@ function check_token() {
     if (empty($_SESSION['token'])) {
         return false;
     }
-
-    return $_SESSION['token'] === $_POST['token'];
+    if ($_SESSION['token'] === $_POST['token']){
+        return true;
+    }
 }

@@ -18,8 +18,11 @@ require_once DIR_MODEL . 'cart.php';
 	check_logined($db);
 
 	__update($db, $response);
-	$response['cart_items'] = cart_list($db, $_SESSION['user']['id']);
-
+	if (check_token()===true){
+	    $response['cart_items'] = cart_list($db, $_SESSION['user']['id']);
+	} else {
+	    $response['error_msg'] = '外部からの不正データです。';
+	}
 	if (empty($response['cart_items'])) {
 		$response['error_msg'] = 'カートに商品がありません。';
 	} else {
