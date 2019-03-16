@@ -127,3 +127,7 @@ function check_logined($db) {
 		exit;
 	}
 }
+function h($str){
+    $escape = htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+    return $escape;
+}
