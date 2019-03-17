@@ -50,8 +50,8 @@ EOD;
 	if ($is_active_only) {
 		$sql .= " WHERE status = 1";
 	}
-    $params = array();
-    return db_select($sql, $db, $params);
+     // $params = array();
+    return db_select($sql, $db);
 }
 
 /**
@@ -80,10 +80,14 @@ EOD;
 function item_update_stock($db, $id, $stock) {
 	$sql = <<<EOD
  UPDATE items
- SET stock = {$stock}, update_date = NOW()
- WHERE id = {$id}
+ SET stock = ?, update_date = NOW()
+ WHERE id = ?
 EOD;
-	return db_update($db, $sql);
+	$params = array(
+	    $stock,
+	    $id
+	);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -95,10 +99,14 @@ EOD;
 function item_update_saled($db, $id, $amount) {
 	$sql = <<<EOD
  UPDATE items
- SET stock = stock - {$amount}, update_date = NOW()
- WHERE id = {$id}
+ SET stock = stock - ?, update_date = NOW()
+ WHERE id = ?
 EOD;
-	return db_update($db, $sql);
+	$params = array(
+	    $amount,
+	    $id
+	);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -110,10 +118,14 @@ EOD;
 function item_update_status($db, $id, $status) {
 	$sql = <<<EOD
  UPDATE items
- SET status = {$status}, update_date = NOW()
- WHERE id = {$id}
+ SET status = ?, update_date = NOW()
+ WHERE id = ?
 EOD;
-	return db_update($db, $sql);
+	$params = array(
+	    $status,
+	    $id
+	);
+	return db_update($db, $sql, $params);
 }
 
 /**

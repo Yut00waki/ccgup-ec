@@ -33,13 +33,17 @@ function db_connect() {
  * @return array
  */
   //
-function db_select($sql, $db, $params) {
-    $stmt=$db->prepare($sql);
-    $stmt->execute($params);
-	if ($stmt->rowCount() === 0) {
-		return array();
-	}
-	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+function db_select($sql, $db, $params = array()) {
+    try{
+        $stmt=$db->prepare($sql);
+        $stmt->execute($params);
+    	if ($stmt->rowCount() === 0) {
+    		return array();
+    	}
+    	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e){
+        die('db error:' . $e->getMessage());
+    }
 	return $rows;
 }
 
@@ -62,10 +66,21 @@ function db_select_one($sql, $db, $params) {
  * @param string $sql
  * @return int
  */
-function db_update(PDO $db, $sql) {
-	return $db->exec($sql);
+function db_update(PDO $db, $sql, $params = array()) {
+    try{
+        $stmt = $db->prepare($sql);
+        return $stmt->execute($params);
+
+    } catch (PDOException $e){
+        die('db error:' . $e->getMessage());
+    }
 }
 
+/*
+function db_update(PDO $db, $sql) {
+    return $db->exec($sql);
+}
+*/
 /**
  *
  * @param mixed $value

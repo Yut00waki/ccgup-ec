@@ -20,7 +20,7 @@ EOD;
         $user_id,
         $item_id
     );
-    $cart = db_select($db, $sql, $params);
+    $cart = db_select($sql, $db, $params);
 	return empty($cart) === false;
 }
 
@@ -113,9 +113,13 @@ EOD;
 function cart_delete($db, $id, $user_id) {
 	$sql = <<<EOD
 DELETE FROM carts
- WHERE id = {$id} AND user_id = {$user_id}
+ WHERE id = ? AND user_id = ?
 EOD;
-	return db_update($db, $sql);
+	$params = array(
+	    $id,
+	    $user_id
+	);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -124,6 +128,9 @@ EOD;
  * @return int
  */
 function cart_clear($db, $user_id) {
-	$sql = 'DELETE FROM carts WHERE user_id = ' . $user_id;
-	return db_update($db, $sql);
+	$sql = 'DELETE FROM carts WHERE user_id = ?';
+	$params = array(
+	    $user_id
+	);
+	return db_update($db, $sql, $params);
 }
