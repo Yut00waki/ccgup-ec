@@ -10,7 +10,6 @@ require_once DIR_MODEL . 'function.php';
 require_once DIR_MODEL . 'cart.php';
 require_once DIR_MODEL . 'item.php';
 
-
 {
 	session_start();
     make_token();
@@ -34,6 +33,11 @@ function __regist($db, &$response) {
 	}
 
 	check_logined($db);
+
+	if(check_token() === false){
+	    $response['error_msg'] = '不正な送信データです。';
+	    return;
+	}
 
 	if (empty($_POST['id']) === TRUE) {
 		$response['error_msg'] = '商品の指定が不適切です。';
