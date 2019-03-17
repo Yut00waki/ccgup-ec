@@ -17,14 +17,14 @@
 function item_regist($db, $name, $img, $price, $stock, $status) {
 	$sql = <<<EOD
 INSERT INTO items (name, img, price, stock, status, create_date, update_date)
- VALUES ('?', '?', '?', '?', '?', NOW(), NOW());
+ VALUES (:name, :img, :price, :stock, :status, NOW(), NOW());
 EOD;
 	$params = array(
-	    $name,
-	    $img,
-	    $price,
-	    $stock,
-	    $status
+	    ':name' => $name,
+	    ':img' => $img,
+	    ':price' => $price,
+	    ':stock' => $stock,
+	    ':status' => $status
 	);
 	return db_update($db, $sql, $params);
 }
@@ -40,9 +40,9 @@ function item_delete($db, $id) {
 	if (!empty($row)) {
 		@unlink(DIR_IMG_FULL . $row['img']);
 	}
-	$sql = 'DELETE FROM items WHERE id = ?' ;
+	$sql = 'DELETE FROM items WHERE id = :id' ;
 	$params = array(
-	    $id
+	    ':id' => $id
 	);
 	return db_update($db, $sql, $params);
 }
@@ -73,10 +73,10 @@ function item_get($db, $id) {
 	$sql = <<<EOD
  SELECT id, name, price, img, stock, status, create_date, update_date
  FROM items
- WHERE id = ?
+ WHERE id = :id
 EOD;
 	$params = array(
-	    $id
+	    ':id' => $id
 	);
 	return db_select_one($sql, $db, $params);
 }
@@ -90,12 +90,12 @@ EOD;
 function item_update_stock($db, $id, $stock) {
 	$sql = <<<EOD
  UPDATE items
- SET stock = ?, update_date = NOW()
- WHERE id = ?
+ SET stock = :stock, update_date = NOW()
+ WHERE id = :id
 EOD;
 	$params = array(
-	    $stock,
-	    $id
+	    ':stock' => $stock,
+	    ':id' => $id
 	);
 	return db_update($db, $sql, $params);
 }
@@ -109,12 +109,12 @@ EOD;
 function item_update_saled($db, $id, $amount) {
 	$sql = <<<EOD
  UPDATE items
- SET stock = stock - ?, update_date = NOW()
- WHERE id = ?
+ SET stock = stock - :amount, update_date = NOW()
+ WHERE id = :id
 EOD;
 	$params = array(
-	    $amount,
-	    $id
+	    ':amount' => $amount,
+	    ':id' => $id
 	);
 	return db_update($db, $sql, $params);
 }
@@ -128,12 +128,12 @@ EOD;
 function item_update_status($db, $id, $status) {
 	$sql = <<<EOD
  UPDATE items
- SET status = ?, update_date = NOW()
- WHERE id = ?
+ SET status = :status, update_date = NOW()
+ WHERE id = :id
 EOD;
 	$params = array(
-	    $status,
-	    $id
+	    ':status' => $status,
+	    ':id' => $id
 	);
 	return db_update($db, $sql, $params);
 }

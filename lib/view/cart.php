@@ -17,9 +17,6 @@
 
 </head>
 <body>
-<?php
- var_dump($_POST);
-?>
 <?php require DIR_VIEW_ELEMENT . 'output_navber.php'; ?>
 
 	<div class="container-fluid px-md-3">
