@@ -77,15 +77,23 @@ function cart_regist($db, $user_id, $item_id) {
 		$sql = <<<EOD
 UPDATE carts
  SET amount = amount + 1 , update_date = NOW()
- WHERE user_id =  {$user_id} AND item_id = {$item_id}
+ WHERE user_id =  ? AND item_id = ?
 EOD;
+		$params = array(
+		    $user_id,
+		    $item_id
+		);
 	} else {
 		$sql = <<<EOD
 INSERT INTO carts (user_id, item_id, amount, create_date, update_date)
-VALUES ({$user_id}, {$item_id}, 1, NOW(), NOW())
+VALUES (?, ?}, 1, NOW(), NOW())
 EOD;
+    	$params = array(
+    	    $user_id,
+    	    $item_id
+    	);
 	}
-	return db_update($db, $sql);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -98,10 +106,15 @@ EOD;
 function cart_update($db, $id, $user_id, $amount) {
 	$sql = <<<EOD
 UPDATE carts
- SET amount = {$amount}, update_date = NOW()
- WHERE id = {$id} AND user_id = {$user_id}
+ SET amount = ?, update_date = NOW()
+ WHERE id = ? AND user_id = ?
 EOD;
-	return db_update($db, $sql);
+	$params = array(
+	    $amount,
+	    $id,
+	    $user_id
+	);
+	return db_update($db, $sql, $params);
 }
 
 /**

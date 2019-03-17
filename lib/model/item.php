@@ -17,9 +17,16 @@
 function item_regist($db, $name, $img, $price, $stock, $status) {
 	$sql = <<<EOD
 INSERT INTO items (name, img, price, stock, status, create_date, update_date)
- VALUES ('{$name}', '{$img}', '{$price}', '{$stock}', '{$status}', NOW(), NOW());
+ VALUES ('?', '?', '?', '?', '?', NOW(), NOW());
 EOD;
-	return db_update($db, $sql);
+	$params = array(
+	    $name,
+	    $img,
+	    $price,
+	    $stock,
+	    $status
+	);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -33,8 +40,11 @@ function item_delete($db, $id) {
 	if (!empty($row)) {
 		@unlink(DIR_IMG_FULL . $row['img']);
 	}
-	$sql = 'DELETE FROM items WHERE id = ' . $id;
-	return db_update($db, $sql);
+	$sql = 'DELETE FROM items WHERE id = ?' ;
+	$params = array(
+	    $id
+	);
+	return db_update($db, $sql, $params);
 }
 
 /**
