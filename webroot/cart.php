@@ -18,11 +18,8 @@ require_once DIR_MODEL . 'cart.php';
 	check_logined($db);
 
 	__update($db, $response);
-	if (check_token()===true){
-	    $response['cart_items'] = cart_list($db, $_SESSION['user']['id']);
-	} else {
-	    $response['error_msg'] = '外部からの不正データです。';
-	}
+	$response['cart_items'] = cart_list($db, $_SESSION['user']['id']);
+
 	if (empty($response['cart_items'])) {
 		$response['error_msg'] = 'カートに商品がありません。';
 	} else {
@@ -39,6 +36,11 @@ require_once DIR_MODEL . 'cart.php';
 function __update($db, &$response) {
 	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 		return;
+	}
+
+	if(check_token() === false){
+	    $response['error_msg'] = '不正な送信データです。';
+	    return;
 	}
 
 	if (empty($_POST['action'])) {

@@ -55,8 +55,9 @@
 								<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 									<button type="submit" class="btn btn-danger btn-sm">削除</button>
 									<input type="hidden" name="id"
-										value="<?php echo $value['id']; ?>"> <input
-										type="hidden" name="action" value="delete">
+										value="<?php echo $value['id']; ?>">
+									<input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?>">
+									<input type="hidden" name="action" value="delete">
 								</form>
 							</td>
 							<td><?php echo number_format($value['price'])?>円</td>
@@ -71,8 +72,9 @@
 											<?php if ((int)$value['amount'] === $count){echo 'selected';}; ?>><?php echo $count;?></option>
 <?php } ?>
                         </select> <input type="hidden" name="id"
-										value="<?php echo $value['id']; ?>"> <input
-										type="hidden" name="action" value="update">
+										value="<?php echo $value['id']; ?>">
+								  <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?>">
+								  <input type="hidden" name="action" value="update">
 								</form>
 							</td>
 						</tr>
@@ -92,6 +94,7 @@
 							<td colspan="4">
 								<div>
 									<form action="./finish.php" method="post">
+									    <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?>">
 										<button type="submit" class="btn btn-warning btn-lg btn-block">購入する</button>
 									</form>
 								</div>

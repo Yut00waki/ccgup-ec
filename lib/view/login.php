@@ -34,6 +34,7 @@
 			for="password" class="sr-only">Password</label> <input
 			type="password" id="password" name="password" class="form-control"
 			placeholder="Login Password" required>
+			<input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?>">
 		<div class="checkbox mb-3">
 			</div>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

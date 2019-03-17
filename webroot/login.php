@@ -15,6 +15,8 @@ require_once DIR_MODEL . 'user.php';
 
 	$response = array();
 
+    make_token();
+
 	__check_logined($db);
 	__login($db, $response);
 
@@ -50,6 +52,11 @@ function __check_logined($db) {
 function __login($db, &$response) {
 	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 		return;
+	}
+
+	if(check_token() === false){
+	    $response['error_msg'] = '不正な送信データです。';
+	    return;
 	}
 
 	$user = user_get_login($db, $_POST['login_id'], $_POST['password']);

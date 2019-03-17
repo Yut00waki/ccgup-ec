@@ -32,6 +32,12 @@ function __finish($db, &$response) {
 		$response['error_msg'] = 'リクエストが不適切です。';
 		return;
 	}
+
+	if(check_token() === false){
+	    $response['error_msg'] = '不正な送信データです。';
+	    return;
+	}
+
 	$response['cart_items'] = cart_list($db, $_SESSION['user']['id']);
 	if (empty($response['cart_items'])) {
 		$response['error_msg'] = 'カートに商品がありません。';
