@@ -4,6 +4,7 @@
  * @license https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja
  * @copyright CodeCamp https://codecamp.jp
  */
+header('X-Flame-Options:DENY');
 ?>
 <?php if (empty($response['result_msg']) !== TRUE) { ?>
 <div class="row">
