@@ -16,7 +16,7 @@ function user_get_login($db, $login_id, $password) {
     $sql = <<<EOM
    SELECT id, login_id, password, is_admin, create_date, update_date
    FROM users
-   WHERE login_id = :login_id AND password = :password
+   WHERE login_id = :login_id AND password = sha1(:password)
 EOM;
  /* $stmt->bindValue('login_id',$login_id,PARAM_STR);
     $stmt->bindValue('password',$password,PARAM_STR);  */
