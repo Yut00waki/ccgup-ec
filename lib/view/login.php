@@ -25,7 +25,7 @@ header('X-Flame-Options:DENY');
 </head>
 
 <body class="text-center">
-	<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+	<form method="post" action="<?php echo h($_SERVER['SCRIPT_NAME']) ?>"
 		class="form-signin">
 <?php require DIR_VIEW_ELEMENT . 'output_message.php'; ?>
 		<h1 class="h3 mb-3 font-weight-normal">CodeCampSHOP</h1>
