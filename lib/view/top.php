@@ -43,7 +43,7 @@ header('X-Flame-Options:DENY');
 							<form action="<?php echo h($_SERVER['SCRIPT_NAME']); ?>" method="post">
 								<input type="hidden" name="id" value="<?php echo h($value['id']); ?>">
 									<input type="hidden" name="token"
-									value="<?php echo $SESSION['token']; ?>">
+									value="<?php echo $_SESSION['token']; ?>">
 
 								<button type="submit" class="btn btn-primary cart-btn">カートに入れる</button>
 							</form>
