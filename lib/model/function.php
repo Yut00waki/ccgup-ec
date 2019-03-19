@@ -8,12 +8,17 @@
 /**
  * @return PDO
  */
+
+
+ // データベースへの接続
 function db_connect() {
 	$dsn = 'mysql:charset=utf8;dbname=' . DB_NAME . ';host=' . DB_HOST;
 
 	try {
 		$db = new PDO($dsn, DB_USER, DB_PASS);
-		$db->exec("SET NAMES 'UTF8'");
+		$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+		$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+
 	} catch (PDOException $e) {
 		die('db error: ' . $e->getMessage());
 	}
@@ -27,12 +32,18 @@ function db_connect() {
  * @param string $sql
  * @return array
  */
-function db_select(PDO $db, $sql) {
-	$result = $db->query($sql);
-	if ($result->rowCount() === 0) {
-		return array();
-	}
-	$rows = $result->fetchAll(PDO::FETCH_ASSOC);
+  //
+function db_select($sql, $db, $params = array()) {
+    try{
+        $stmt=$db->prepare($sql);
+        $stmt->execute($params);
+    	if ($stmt->rowCount() === 0) {
+    		return array();
+    	}
+    	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e){
+        die('db error:' . $e->getMessage());
+    }
 	return $rows;
 }
 
@@ -41,8 +52,8 @@ function db_select(PDO $db, $sql) {
  * @param string $sql
  * @return NULL|mixed
  */
-function db_select_one(PDO $db, $sql) {
-	$rows = db_select($db, $sql);
+function db_select_one($sql, $db, $params) {
+    $rows = db_select($sql, $db, $params);
 	if (empty($rows)) {
 		return null;
 	}
@@ -55,10 +66,21 @@ function db_select_one(PDO $db, $sql) {
  * @param string $sql
  * @return int
  */
-function db_update(PDO $db, $sql) {
-	return $db->exec($sql);
+function db_update(PDO $db, $sql, $params = array()) {
+    try{
+        $stmt = $db->prepare($sql);
+        return $stmt->execute($params);
+
+    } catch (PDOException $e){
+        die('db error:' . $e->getMessage());
+    }
 }
 
+/*
+function db_update(PDO $db, $sql) {
+    return $db->exec($sql);
+}
+*/
 /**
  *
  * @param mixed $value
@@ -113,6 +135,7 @@ function save_upload_file($dir, $varname, &$errors) {
 /**
  * @param PDO $db
  */
+ // セッションのにuserの値が入っていなければlogin.php。
 function check_logined($db) {
 	if (empty($_SESSION['user'])) {
 		header('Location: ./login.php');
