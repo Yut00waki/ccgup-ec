@@ -16,7 +16,11 @@ require_once DIR_MODEL . 'item.php';
 	$db = db_connect();
 	$response = array();
 
-	__regist($db, $response);
+	if(check_token() === true){
+	    __regist($db, $response);
+	}
+	 make_token();
+
 	$response['items'] = item_list($db);
 
 	require_once DIR_VIEW  . 'top.php';
@@ -32,11 +36,6 @@ function __regist($db, &$response) {
 	}
 
 	check_logined($db);
-
-	if(check_token() === false){
-	    $response['error_msg'] = '不正な送信データです。';
-	    return;
-	}
 
 	if (empty($_POST['id']) === TRUE) {
 		$response['error_msg'] = '商品の指定が不適切です。';

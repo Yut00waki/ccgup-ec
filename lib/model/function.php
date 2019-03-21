@@ -161,16 +161,18 @@ function make_token() {
 }
 
 function check_token() {
-    if (empty($_POST['token'])) {
+    if (empty($_POST['token'])){
         return false;
     }
 
-    if (empty($_SESSION['token'])) {
+    if (empty($_SESSION['token'])){
         return false;
     }
-    if ($_SESSION['token'] === $_POST['token']){
+
+    if ($_POST['token'] === $_SESSION['token']){
         return true;
     }
+    return false;
 }
 
 function h($str){

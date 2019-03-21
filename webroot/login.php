@@ -16,10 +16,13 @@ require_once DIR_MODEL . 'user.php';
     // 配列の初期化
 	$response = array();
 
+	__check_logined($db);
+
+	if(check_token() === true){
+	    __login($db, $response);
+	}
     make_token();
 
-	__check_logined($db);
-	__login($db, $response);
 	// 上記満たさなかった場合は'login.php'を参照する。
 	require_once DIR_VIEW  . 'login.php';
 }
@@ -57,11 +60,6 @@ function __login($db, &$response) {
     // リクエストメソッドがPOSTでなければ呼び出し元に移動する。
 	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 		return;
-	}
-
-	if(check_token() === false){
-	    $response['error_msg'] = '不正な送信データです。';
-	    return;
 	}
 
 	$user = user_get_login($db, $_POST['login_id'], $_POST['password']);
