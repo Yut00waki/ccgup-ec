@@ -43,7 +43,7 @@ function __finish($db, &$response) {
 		$response['error_msg'] = 'カートに商品がありません。';
 		return;
 	}
-
+	var_dump($response['cart_items']);
 	$response['total_price'] = cart_total_price($db, $_SESSION['user']['id']);
 
 	foreach ($response['cart_items']as $item) {
