@@ -18,9 +18,10 @@ require_once DIR_MODEL . 'user.php';
 
 	__check_logined($db);
 
-	if(check_token() === true){
+	if(check_token($response) === true){
 	    __login($db, $response);
 	}
+
     make_token();
 
 	// 上記満たさなかった場合は'login.php'を参照する。

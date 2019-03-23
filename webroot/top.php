@@ -16,7 +16,7 @@ require_once DIR_MODEL . 'item.php';
 	$db = db_connect();
 	$response = array();
 
-	if(check_token() === true){
+	if(check_token($response) === true){
 	    __regist($db, $response);
 	}
 	 make_token();

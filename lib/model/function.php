@@ -159,20 +159,36 @@ function make_token() {
     $token = sha1(uniqid(mt_rand(), true));
     $_SESSION['token'] = $token;
 }
+function get_post_data($key) {
+    $str = '';
+    if (isset($_POST[$key]) === TRUE) {
+        $str = $_POST[$key];
+    }
+    return $str;
+}
 
-function check_token() {
-    if (empty($_POST['token'])){
+function get_post_data($name){
+    if(isset($_POST[$name]) === true){
+        return $_POST[$name];
+    }
+    return '';
+}
+
+function get_session_data($name){
+    if(isset($_SESSION[$name]) === true){
+        return $_SESSION[$name];
+    }
+    return '';
+}
+
+function check_token(&$response) {
+    $post_token = get_post_data('token');
+    $session_token = get_session_data('token');
+    if($post_token === '' || $post_token !== $session_token){
+        $response['error_msg'] = 'POSTデータが不正です。';
         return false;
     }
-
-    if (empty($_SESSION['token'])){
-        return false;
-    }
-
-    if ($_POST['token'] === $_SESSION['token']){
-        return true;
-    }
-    return false;
+    return true;
 }
 
 function h($str){

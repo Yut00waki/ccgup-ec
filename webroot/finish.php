@@ -33,8 +33,7 @@ function __finish($db, &$response) {
 		return;
 	}
 
-	if(check_token() === false){
-	    $response['error_msg'] = '不正な送信データです。';
+	if(check_token($response) === false){
 	    return;
 	}
 

@@ -17,7 +17,7 @@ require_once DIR_MODEL . 'cart.php';
 
 	check_logined($db);
 
-	if(check_token() === true){
+	if(check_token($response) === true){
 	    __update($db, $response);
 	}
 
