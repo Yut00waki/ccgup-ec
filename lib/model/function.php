@@ -159,13 +159,6 @@ function make_token() {
     $token = sha1(uniqid(mt_rand(), true));
     $_SESSION['token'] = $token;
 }
-function get_post_data($key) {
-    $str = '';
-    if (isset($_POST[$key]) === TRUE) {
-        $str = $_POST[$key];
-    }
-    return $str;
-}
 
 function get_post_data($name){
     if(isset($_POST[$name]) === true){
@@ -185,7 +178,7 @@ function check_token(&$response) {
     $post_token = get_post_data('token');
     $session_token = get_session_data('token');
     if($post_token === '' || $post_token !== $session_token){
-        $response['error_msg'] = 'POSTデータが不正です。';
+       // $response['error_msg'] = 'POSTデータが不正です。';
         return false;
     }
     return true;

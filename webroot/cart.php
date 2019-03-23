@@ -43,7 +43,7 @@ function __update($db, &$response) {
 		return;
 	}
 
-	if(check_token() === false){
+	if(check_token($response) === false){
 	    $response['error_msg'] = '不正な送信データです。';
 	    return;
 	}
