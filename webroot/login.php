@@ -18,7 +18,7 @@ require_once DIR_MODEL . 'user.php';
 
 	__check_logined($db);
 
-	if(check_token($response) === true){
+	if(is_post() && check_token($response) === true){
 	    __login($db, $response);
 	}
 

@@ -152,10 +152,6 @@ function check_logined($db) {
 }
 
 function make_token() {
-    if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-        return;
-    }
-
     $token = sha1(uniqid(mt_rand(), true));
     $_SESSION['token'] = $token;
 }
@@ -178,7 +174,7 @@ function check_token(&$response) {
     $post_token = get_post_data('token');
     $session_token = get_session_data('token');
     if($post_token === '' || $post_token !== $session_token){
-       // $response['error_msg'] = 'POSTデータが不正です。';
+        $response['error_msg'] = 'POSTデータが不正です。';
         return false;
     }
     return true;
@@ -187,4 +183,8 @@ function check_token(&$response) {
 function h($str){
     $escape = htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     return $escape;
+}
+
+function is_post(){
+    return $_SERVER['REQUEST_METHOD'] === 'POST';
 }

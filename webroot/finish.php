@@ -28,7 +28,7 @@ require_once DIR_MODEL . 'item.php';
  * @param array $response
  */
 function __finish($db, &$response) {
-	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+	if (is_post() === false) {
 		$response['error_msg'] = 'リクエストが不適切です。';
 		return;
 	}
