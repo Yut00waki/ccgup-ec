@@ -43,11 +43,6 @@ function __update($db, &$response) {
 		return;
 	}
 
-	if(check_token($response) === false){
-	    $response['error_msg'] = '不正な送信データです。';
-	    return;
-	}
-
 	if (empty($_POST['action'])) {
 		$response['error_msg'] = 'リクエストが不適切です。';
 		return;

@@ -33,10 +33,6 @@ function __finish($db, &$response) {
 		return;
 	}
 
-	if(check_token($response) === false){
-	    return;
-	}
-
 	$response['cart_items'] = cart_list($db, $_SESSION['user']['id']);
 	if (empty($response['cart_items'])) {
 		$response['error_msg'] = 'カートに商品がありません。';
