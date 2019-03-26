@@ -28,10 +28,10 @@ require_once DIR_MODEL . 'item.php';
  * @param array $response
  */
 function __finish($db, &$response) {
-	if (is_post() === false) {
-		$response['error_msg'] = 'リクエストが不適切です。';
-		return;
+	if(check_token($response) === false){
+	    return;
 	}
+
 
 	$response['cart_items'] = cart_list($db, $_SESSION['user']['id']);
 	if (empty($response['cart_items'])) {
