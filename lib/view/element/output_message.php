@@ -4,6 +4,7 @@
  * @license https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja
  * @copyright CodeCamp https://codecamp.jp
  */
+header('X-Flame-Options:DENY');
 ?>
 <?php // 配列responseのresult_msgに値が入力されていたら値を表示する。 ?>
 <?php if (empty($response['result_msg']) !== TRUE) { ?>

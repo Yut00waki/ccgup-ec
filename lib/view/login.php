@@ -4,6 +4,7 @@
  * @license https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja
  * @copyright CodeCamp https://codecamp.jp
  */
+header('X-Flame-Options:DENY');
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,6 +16,8 @@
 <meta name="author" content="">
 
 <title>ログイン：CodeCamp講師</title>
+
+
 
 <!-- Bootstrap core CSS -->
 <link href="./assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,6 +37,7 @@
 			for="password" class="sr-only">Password</label> <input
 			type="password" id="password" name="password" class="form-control"
 			placeholder="Login Password" required>
+			<input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?>">
 		<div class="checkbox mb-3">
 			</div>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

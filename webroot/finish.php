@@ -28,16 +28,16 @@ require_once DIR_MODEL . 'item.php';
  * @param array $response
  */
 function __finish($db, &$response) {
-	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-		$response['error_msg'] = 'リクエストが不適切です。';
-		return;
+	if(check_token($response) === false){
+	    return;
 	}
+
+
 	$response['cart_items'] = cart_list($db, $_SESSION['user']['id']);
 	if (empty($response['cart_items'])) {
 		$response['error_msg'] = 'カートに商品がありません。';
 		return;
 	}
-
 	$response['total_price'] = cart_total_price($db, $_SESSION['user']['id']);
 
 	foreach ($response['cart_items']as $item) {

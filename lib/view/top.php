@@ -4,6 +4,7 @@
  * @license https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja
  * @copyright CodeCamp https://codecamp.jp
  */
+header('X-Flame-Options:DENY');
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -40,8 +41,10 @@
 <?php // 在庫数量が０以上であれば、それ以外であればの条件指定。 ?>
 <?php if ($value['stock'] > 0) { ?>
 							<form action="<?php echo h($_SERVER['SCRIPT_NAME']); ?>" method="post">
-								<input type="hidden" name="id"
-									value="<?php echo h($value['id']); ?>">
+								<input type="hidden" name="id" value="<?php echo h($value['id']); ?>">
+									<input type="hidden" name="token"
+									value="<?php echo $_SESSION['token']; ?>">
+
 								<button type="submit" class="btn btn-primary cart-btn">カートに入れる</button>
 							</form>
 <?php } else { ?>

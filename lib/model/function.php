@@ -150,7 +150,41 @@ function check_logined($db) {
 		exit;
 	}
 }
+
+function make_token() {
+    $token = sha1(uniqid(mt_rand(), true));
+    $_SESSION['token'] = $token;
+}
+
+function get_post_data($name){
+    if(isset($_POST[$name]) === true){
+        return $_POST[$name];
+    }
+    return '';
+}
+
+function get_session_data($name){
+    if(isset($_SESSION[$name]) === true){
+        return $_SESSION[$name];
+    }
+    return '';
+}
+
+function check_token(&$response) {
+    $post_token = get_post_data('token');
+    $session_token = get_session_data('token');
+    if($post_token === '' || $post_token !== $session_token){
+        $response['error_msg'] = 'POSTデータが不正です。';
+        return false;
+    }
+    return true;
+}
+
 function h($str){
     $escape = htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     return $escape;
+}
+
+function is_post(){
+    return $_SERVER['REQUEST_METHOD'] === 'POST';
 }

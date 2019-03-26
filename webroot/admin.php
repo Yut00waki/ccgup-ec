@@ -18,7 +18,10 @@ require_once DIR_MODEL . 'user.php';
 
 	check_logined($db);
 
-	__update($db, $response);
+	if(is_post() && check_token($response) === true){
+	    __update($db, $response);
+	}
+	make_token();
 
 	$response['items'] = item_list($db, false);
 

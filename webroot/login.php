@@ -15,9 +15,15 @@ require_once DIR_MODEL . 'user.php';
 	$db = db_connect();
     // 配列の初期化
 	$response = array();
-    // 下の関数の実行。
+
 	__check_logined($db);
-	__login($db, $response);
+
+	if(is_post() && check_token($response) === true){
+	    __login($db, $response);
+	}
+
+    make_token();
+
 	// 上記満たさなかった場合は'login.php'を参照する。
 	require_once DIR_VIEW  . 'login.php';
 }
@@ -56,7 +62,7 @@ function __login($db, &$response) {
 	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 		return;
 	}
-    // user.phpにおける関数の実行。
+
 	$user = user_get_login($db, $_POST['login_id'], $_POST['password']);
 	// データがなければエラーを表示。呼び出し元に移動する。
 	if (empty($user)) {
