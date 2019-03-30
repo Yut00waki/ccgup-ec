@@ -72,7 +72,8 @@ function db_update(PDO $db, $sql, $params = array()) {
         return $stmt->execute($params);
 
     } catch (PDOException $e){
-        die('db error:' . $e->getMessage());
+        // $response['error_msg'] = 'db error:' . $e->getMessage();
+        throw $e;
     }
 }
 
@@ -187,4 +188,8 @@ function h($str){
 
 function is_post(){
     return $_SERVER['REQUEST_METHOD'] === 'POST';
+}
+
+function is_get(){
+    return $_SERVER['REQUEST_METHOD'] === 'GET';
 }

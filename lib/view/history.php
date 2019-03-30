@@ -5,22 +5,21 @@
 	<title>購入履歴画面</title>
 </head>
 <body>
-	<table>
+	<table border=1>
 		<tr>
 			<th>注文番号</th>
 			<th>購入日時</th>
 			<th>合計金額</th>
 			<th>明細</th>
 		</tr>
-		<?php foreach($response['items'] as $value){   ?>
+		<?php foreach($response['order_list'] as $value){   ?>
 		<tr>
-			<td><?php echo $value['id']?></td>
-			<td><?php echo $value['sum']?></td>
-			<td><?php echo $value['date']?></td>
-			<form method="post" action="../webroot/detail_history.php ">
+			<td><?php echo h($value['order_id']); ?></td>
+			<td><?php echo h($value['purchase_date']); ?></td>
+			<td><?php echo h($value['purchase_price'] * $value['amount']); ?></td>  ?>
+			<form method="get" action="./history_details.php ">
 			<td>
-			    <input type="hidden" name="date" value="<?php echo $value['date'];?>">
-				<input type="hidden" name="user_id" value="<?php echo $value['user_id'];?>">
+				<input type="hidden" name="order_id" value="<?php echo h($value['order_id']);?>">
 			    <input type="submit" value="確認">
 			</td>
 			</form>

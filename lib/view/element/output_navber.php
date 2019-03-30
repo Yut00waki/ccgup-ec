@@ -19,6 +19,8 @@ header('X-Flame-Options:DENY');
 				<li class="nav-item"><a class="text-white nav-link" href="./top.php">ホーム</a></li>
 				<li class="nav-item"><a class="text-white nav-link"
 					href="./cart.php">カート</a></li>
+				<li class="nav-item"><a class="text-white nav-link"
+					href="./history.php">購入履歴</a></li>
 <?php // セッションのユーザーに値がなければ、ログインへのアクセスを出す。値があればログアウトへのアクセスを出す。 ?>
 <?php if (empty($_SESSION['user'])) { ?>
 				<li class="nav-item"><a class="text-white nav-link"
