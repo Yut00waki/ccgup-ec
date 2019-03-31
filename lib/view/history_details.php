@@ -5,10 +5,12 @@
 	<title>領収書</title>
 </head>
 <body>
-	<?php  foreach($response['order_list'] as $value){     ?>
-	<p>注文番号：<?php echo $value['order_id']?></p>
-	<p>購入日時：<?php echo $value['purchase_date']?></p>
-	<p>合計金額：<?php echo $value['sum']?></p>
+	<?php require DIR_VIEW_ELEMENT . 'output_message.php'; ?>
+	<h1>購入明細</h1>
+	<?php  foreach($response['total_sales_list'] as $key => $value){   ?>
+	<p>注文番号：<?php echo $key; ?></p>
+	<p>購入日時：<?php // echo  ?></p>
+	<p>合計金額：<?php echo $value; ?></p>
 	<?php }  ?>
 	<table border=!>
 		<tr>

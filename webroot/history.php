@@ -14,6 +14,8 @@ require_once DIR_MODEL . 'item.php';
 
     check_logined($db);
 
+    make_token();
+
     _order($db, $response);
 
     require_once DIR_VIEW . 'history.php';
@@ -28,5 +30,5 @@ function _order($db, &$response){
         $response['error_msg'] = '購入した商品はありません';
         return;
     }
-    return $response['order_list'];
+    return $response['total_sales_list'] = sales_list($response['order_list']);
 }

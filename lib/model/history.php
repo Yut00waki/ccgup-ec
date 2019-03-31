@@ -80,3 +80,12 @@ function orders_regist($db, $user_id){
     );
     return db_update($db, $sql, $params);
 }
+// 購入済商品の注文番号、その合計額を抽出する関数。
+function sales_list($order_list){
+    $total_sales_list = array();
+    foreach($order_list as $order){
+        $total_sales_list[$order['order_id']] = '0';
+        $total_sales_list[$order['order_id']] += ($order['purchase_price'] * $order['amount']);
+    }
+    return $total_sales_list;
+}
