@@ -13,19 +13,14 @@ require_once DIR_MODEL . 'item.php';
     $response = array();
 
     check_logined($db);
-
-    check_token_get($response);
-
-    _order($db, $response);
-    _order_details($db, $response);
-
+    if(is_get() && check_token_get($response) === true){
+        _order($db, $response);
+        _order_details($db, $response);
+    }
     require_once DIR_VIEW . 'history_details.php';
 }
 
 function _order($db, &$response){
-    if(is_get() === 'false'){
-        return;
-    }
     if(empty($_GET['order_id']) === 'true'){
         return;
     }
@@ -40,9 +35,6 @@ function _order($db, &$response){
 }
 
 function _order_details($db, &$response){
-    if(is_get() === 'false'){
-        return;
-    }
     if(empty($_GET['order_id']) === 'true'){
         return;
     }
