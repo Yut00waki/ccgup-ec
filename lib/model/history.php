@@ -1,32 +1,5 @@
 <?php
 
-function get_order_list($db, $user_id){
-    $sql=<<<EOM
-SELECT
-    orders.order_id,
-    orders.purchase_date,
-    order_details.purchase_price,
-    order_details.amount,
-    items.name
-FROM
-    orders
-    INNER JOIN
-        order_details
-    ON
-        orders.order_id=order_details.order_id
-    INNER JOIN
-        items
-    ON
-        order_details.item_id=items.id
-WHERE user_id = :user_id
-EOM;
-    $params = array(
-        ':user_id' => $user_id,
-    );
-    return db_select($sql, $db, $params);
-}
-
-
 function get_order_detail_list($db, $user_id, $order_id){
     $sql=<<<EOM
 SELECT
@@ -50,6 +23,31 @@ EOM;
     $params = array(
         ':user_id' => $user_id,
         ':order_id' => $order_id
+    );
+    return db_select($sql, $db, $params);
+}
+
+function get_order_list_group_orderID($db, $user_id){
+    $sql=<<<EOM
+SELECT
+    orders.order_id,
+    orders.purchase_date,
+    sum(order_details.purchase_price * order_details.amount) as sum
+FROM
+    orders
+    INNER JOIN
+        order_details
+    ON
+        orders.order_id=order_details.order_id
+    INNER JOIN
+        items
+    ON
+        order_details.item_id=items.id
+WHERE user_id = :user_id
+GROUP BY orders.order_id
+EOM;
+    $params = array(
+        ':user_id' => $user_id,
     );
     return db_select($sql, $db, $params);
 }
@@ -84,7 +82,9 @@ function orders_regist($db, $user_id){
 function sales_list($order_list){
     $total_sales_list = array();
     foreach($order_list as $order){
-        $total_sales_list[$order['order_id']] = '0';
+        if(isset($total_sales_list[$order['order_id']]) === false){
+            $total_sales_list[$order['order_id']] = 0;
+        }
         $total_sales_list[$order['order_id']] += ($order['purchase_price'] * $order['amount']);
     }
     return $total_sales_list;

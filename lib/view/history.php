@@ -15,15 +15,14 @@
 			<th>合計金額</th>
 			<th>明細</th>
 		</tr>
-		<?php foreach($response['total_sales_list'] as $key => $value){   ?>
+		<?php foreach($response['order_list'] as $value){   ?>
 		<tr>
-			<td><?php echo h($key); ?></td>
+			<td><?php echo h($value['order_id']); ?></td>
 			<td><?php echo h($value['purchase_date']); ?></td>
-			<td><?php echo h(number_format($value)); ?>円</td>
+			<td><?php echo h(number_format($value['sum'])); ?>円</td>
 			<form method="get" action="./history_details.php ">
 			<td>
-				<input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
-				<input type="hidden" name="order_id" value="<?php echo h($key);?>">
+				<input type="hidden" name="order_id" value="<?php echo h($value['order_id']);?>">
 			    <input type="submit" value="確認">
 			</td>
 			</form>
