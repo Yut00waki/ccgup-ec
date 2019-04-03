@@ -145,3 +145,42 @@ EOD;
 function item_valid_status($status) {
 	return "0" === (string)$status || "1" === (string)$status;
 }
+
+function sort_new_item($db, $is_active_only = true){
+    $sql = <<<EOD
+ SELECT id, name, price, img, stock, status, create_date, update_date
+ FROM items
+EOD;
+
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    $sql .= " ORDER BY id DESC";
+    return db_select($sql, $db);
+}
+
+function sort_cheap_item($db, $is_active_only = true){
+    $sql = <<<EOD
+ SELECT id, name, price, img, stock, status, create_date, update_date
+ FROM items
+EOD;
+
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    $sql .= " ORDER BY price ASC";
+    return db_select($sql, $db);
+}
+
+function sort_expensive_item($db, $is_active_only = true){
+    $sql = <<<EOD
+ SELECT id, name, price, img, stock, status, create_date, update_date
+ FROM items
+EOD;
+
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    $sql .= " ORDER BY price DESC";
+    return db_select($sql, $db);
+}
