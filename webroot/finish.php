@@ -9,6 +9,7 @@ require_once '../lib/config/const.php';
 require_once DIR_MODEL . 'function.php';
 require_once DIR_MODEL . 'cart.php';
 require_once DIR_MODEL . 'item.php';
+require_once DIR_MODEL . 'history.php';
 
 {
 	session_start();
@@ -40,10 +41,24 @@ function __finish($db, &$response) {
 	}
 	$response['total_price'] = cart_total_price($db, $_SESSION['user']['id']);
 
-	foreach ($response['cart_items']as $item) {
-		item_update_saled($db, $item['item_id'], $item['amount']);
-	}
-	cart_clear($db, $_SESSION['user']['id']);
+    $db -> beginTransaction();
+    try{
+    	foreach ($response['cart_items']as $item) {
+    		item_update_saled($db, $item['item_id'], $item['amount']);
+    	}
+    	orders_regist($db, $_SESSION['user']['id']);
 
-	$response['result_msg'] = 'ご購入、ありがとうございました。';
+    	$order_id = $db->lastInsertId();
+    	foreach($response['cart_items'] as $items){
+    	    order_details_regist($db, $order_id, $items['item_id'], $items['price'], $items['amount']);
+    	}
+
+    	cart_clear($db, $_SESSION['user']['id']);
+    	$response['result_msg'] = 'ご購入、ありがとうございました。';
+
+    	$db -> commit();
+    }catch(PDOException $e){
+        $response['error_msg'] = 'db_error:' . $e->getTraceAsString();
+        $db -> rollBack();
+    }
 }

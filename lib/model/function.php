@@ -72,7 +72,8 @@ function db_update(PDO $db, $sql, $params = array()) {
         return $stmt->execute($params);
 
     } catch (PDOException $e){
-        die('db error:' . $e->getMessage());
+        // $response['error_msg'] = 'db error:' . $e->getMessage();
+        throw $e;
     }
 }
 
@@ -163,6 +164,13 @@ function get_post_data($name){
     return '';
 }
 
+function get_get_data($name){
+    if(isset($_GET[$name]) === true){
+        return $_GET[$name];
+    }
+    return '';
+}
+
 function get_session_data($name){
     if(isset($_SESSION[$name]) === true){
         return $_SESSION[$name];
@@ -175,6 +183,16 @@ function check_token(&$response) {
     $session_token = get_session_data('token');
     if($post_token === '' || $post_token !== $session_token){
         $response['error_msg'] = 'POSTデータが不正です。';
+        return false;
+    }
+    return true;
+}
+
+function check_token_get(&$response) {
+    $get_token = get_get_data('token');
+    $session_token = get_session_data('token');
+    if($get_token === '' || $get_token !== $session_token){
+        $response['error_msg'] = 'GETデータが不正です。';
         return false;
     }
     return true;

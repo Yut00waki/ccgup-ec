@@ -23,7 +23,6 @@ require_once DIR_MODEL . 'item.php';
 	 make_token();
 
 	$response['items'] = item_list($db);
-
 	require_once DIR_VIEW  . 'top.php';
 }
 
