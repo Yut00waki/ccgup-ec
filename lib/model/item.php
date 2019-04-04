@@ -184,3 +184,15 @@ EOD;
     $sql .= " ORDER BY price DESC";
     return db_select($sql, $db);
 }
+
+function sort_items($db, $get_action){
+    switch ($get_action) {
+        case '' :
+        case 'new_item' :
+            return sort_new_item($db);
+        case 'cheap_item' :
+            return sort_cheap_item($db);
+        case 'expensive_item'  :
+            return sort_expensive_item($db);
+    }
+}

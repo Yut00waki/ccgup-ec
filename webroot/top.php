@@ -19,9 +19,10 @@ require_once DIR_MODEL . 'item.php';
 	if(is_post() && check_token($response) === true){
         __regist($db, $response);
 	}
-	$response['items'] = item_list($db);
 
-	sort_items($db, $response);
+	$get_action = get_get_data('action');
+
+	$response['items'] = sort_items($db, $get_action);
 
 	 make_token();
 
@@ -51,21 +52,4 @@ function __regist($db, &$response) {
 
 	$response['error_msg'] = 'カート登録に失敗しました。';
 	return;
-}
-function sort_items($db, &$response){
-    if(isset($_GET['action']) === false){
-        $response['error_msg'] = 'ソートの条件が指定できておりません。';
-        return;
-    }
-    switch ($_GET['action']) {
-        case 'new_item' :
-            $response['items'] = sort_new_item($db);
-            break;
-        case 'cheap_item' :
-            $response['items'] = sort_cheap_item($db);
-            break;
-        case 'expensive_item'  :
-            $response['items'] = sort_expensive_item($db);
-            break;
-    }
 }
