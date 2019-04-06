@@ -63,7 +63,22 @@ EOD;
      // $params = array();
     return db_select($sql, $db);
 }
+function item_limit_list($db, $start_item_number, $is_active_only = true){
+    $sql =<<<EOM
+        SELECT id, name, price, img, stock, status, create_date, update_date
+        FROM items
+        EOM;
 
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    $sql .= " LIMIT :start_item_number, :max";
+    $params = array(
+        ':start_item_number' =>  $start_item_number,
+        ':max' => MAX
+    );
+    return db_select($sql, $db, $params);
+}
 /**
  * @param PDO $db
  * @param int $id
@@ -145,3 +160,25 @@ EOD;
 function item_valid_status($status) {
 	return "0" === (string)$status || "1" === (string)$status;
 }
+function get_max_page($db, &$response){
+    $page = 1;
+
+    $response['items'] = item_list($db);
+
+    $items_count = count($response['items']);
+
+    return ceil($items_count / MAX);
+}
+
+function get_each_page_items($db, &$response){
+    if(isset($_GET['page']) === true){
+        $page = $_GET['page'];
+    }else{
+        $page = 1;
+    }
+    $start_item_number = ($page - 1) * MAX;
+
+    $response['items'] = item_limit_list($db, $start_item_number);
+}
+
+

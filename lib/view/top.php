@@ -57,6 +57,9 @@ header('X-Flame-Options:DENY');
 <?php } ?>
 		</div>
 	</div>
+	<?php for($p=1;$p<=$max_page;$p++){ ?>
+	<a class="page" href="./top.php?page=<?php echo $p; ?>"><?php echo $p; ?></a>
+	<?php  } ?>
 	<!-- /.container -->
 	<script src="./assets/js/jquery/1.12.4/jquery.min.js"></script>
 	<script src="./assets/bootstrap/dist/js/bootstrap.min.js"></script>
