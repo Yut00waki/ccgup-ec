@@ -53,7 +53,7 @@ function item_delete($db, $id) {
  */
 function item_list($db, $is_active_only = true) {
 	$sql = <<<EOD
- SELECT count(*)id, name, price, img, stock, status, create_date, update_date
+ SELECT id, name, price, img, stock, status, create_date, update_date
  FROM items
 EOD;
 
