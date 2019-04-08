@@ -32,3 +32,7 @@ body {
 .cart-list tr.disable {
 	background-color: #A9A9A9;
 }
+
+.margin_top{
+	margin:20px;
+}

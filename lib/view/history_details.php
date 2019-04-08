@@ -3,16 +3,19 @@
 <head>
 	<meta charset = "utf-8">
 	<title>領収書</title>
-	<link href="./assets/css/history.css" rel="stylesheet">
+	<link href="./assets/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+	<link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
+	<?php require DIR_VIEW_ELEMENT . 'output_navber.php'; ?>
 	<?php require DIR_VIEW_ELEMENT . 'output_message.php'; ?>
 	<?php if(count($response['order_detail_list']) > 0 ){?>
 	<h1>購入明細</h1>
 	<p>注文番号：<?php echo h($response['order_detail_list'][0]['order_id']); ?></p>
 	<p>購入日時：<?php echo h($response['order_detail_list'][0]['purchase_date']); ?></p>
 	<p>合計金額：<?php echo h(number_format($response['sum'])); ?>円</p>
-	<table border=!>
+	<table class="text-center" border=!>
 		<tr>
 			<th>商品名</th>
 			<th>商品価格</th>

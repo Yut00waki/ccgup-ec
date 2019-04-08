@@ -53,7 +53,7 @@ function item_delete($db, $id) {
  */
 function item_list($db, $is_active_only = true) {
 	$sql = <<<EOD
- SELECT id, name, price, img, stock, status, create_date, update_date
+ SELECT count(*)id, name, price, img, stock, status, create_date, update_date
  FROM items
 EOD;
 
@@ -61,6 +61,16 @@ EOD;
 		$sql .= " WHERE status = 1";
 	}
      // $params = array();
+    return db_select($sql, $db);
+}
+function get_count_item($db, $is_active_only = true) {
+    $sql = <<<EOD
+ SELECT count(*)  as count
+ FROM items
+EOD;
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
     return db_select($sql, $db);
 }
 function item_limit_list($db, $start_item_number, $is_active_only = true){
@@ -161,24 +171,15 @@ function item_valid_status($status) {
 	return "0" === (string)$status || "1" === (string)$status;
 }
 function get_max_page($db, &$response){
-    $page = 1;
+    $items_count = get_count_item($db);
 
-    $response['items'] = item_list($db);
-
-    $items_count = count($response['items']);
-
-    return ceil($items_count / MAX);
+    return ceil($items_count[0]['count'] / MAX);
 }
 
-function get_each_page_items($db, &$response){
-    if(isset($_GET['page']) === true){
-        $page = $_GET['page'];
-    }else{
-        $page = 1;
-    }
+function get_each_page_items($db, $page){
     $start_item_number = ($page - 1) * MAX;
 
-    $response['items'] = item_limit_list($db, $start_item_number);
+    return item_limit_list($db, $start_item_number);
 }
 
 

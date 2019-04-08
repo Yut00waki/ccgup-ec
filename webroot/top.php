@@ -18,7 +18,13 @@ require_once DIR_MODEL . 'item.php';
 
 	$max_page = get_max_page($db, $response);
 
-	get_each_page_items($db, $response);
+	if(isset($_GET['page']) === true){
+	    $page = $_GET['page'];
+	}else{
+	    $page = 1;
+	}
+
+	$response['items'] = get_each_page_items($db, $page);
 
 	if(is_post() && check_token($response) === true){
         __regist($db, $response);

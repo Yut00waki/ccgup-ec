@@ -32,7 +32,7 @@ header('X-Flame-Options:DENY');
 <?php // 配列responseのitemsから値を抽出。 ?>
 <?php foreach ($response['items'] as $value)  { ?>
 			<div class="card col-12 col-md-4 p-0 m-0 shadow-sm">
-				<img class="item-img w-100 img-responsive"
+				<img class="rounded"
 					src="<?php echo h(DIR_IMG . $value['img']); ?>">
 				<div class="card-body">
 					<div class="row item-info">
@@ -43,7 +43,7 @@ header('X-Flame-Options:DENY');
 							<form action="<?php echo h($_SERVER['SCRIPT_NAME']); ?>" method="post">
 								<input type="hidden" name="id" value="<?php echo h($value['id']); ?>">
 									<input type="hidden" name="token"
-									value="<?php echo $_SESSION['token']; ?>">
+									value="<?php echo h($_SESSION['token']); ?>">
 
 								<button type="submit" class="btn btn-primary cart-btn">カートに入れる</button>
 							</form>
@@ -57,9 +57,21 @@ header('X-Flame-Options:DENY');
 <?php } ?>
 		</div>
 	</div>
-	<?php for($p=1;$p<=$max_page;$p++){ ?>
-	<a class="page" href="./top.php?page=<?php echo $p; ?>"><?php echo $p; ?></a>
+	<div class="text-center margin_top">
+	<?php if($page > 1){ ?>
+	<a class="btn btn-primary cart-btn" href="./top.php?page=<?php echo h($page - 1); ?>">前へ</a>
 	<?php  } ?>
+	<?php for($p=1;$p<=$max_page;$p++){ ?>
+		<?php if($p === (int)$page){ ?>
+			<div class="btn btn-info cart-btn"><?php echo h($p); ?></div>
+		<?php }else{  ?>
+			<a class="btn btn-primary cart-btn" href="./top.php?page=<?php echo h($p); ?>"><?php echo h($p); ?></a>
+		<?php  } ?>
+	<?php  } ?>
+	<?php if($page < $max_page){ ?>
+	<a class="btn btn-primary cart-btn" href="./top.php?page=<?php echo h($page + 1); ?>">次へ</a>
+	<?php  } ?>
+	</div>
 	<!-- /.container -->
 	<script src="./assets/js/jquery/1.12.4/jquery.min.js"></script>
 	<script src="./assets/bootstrap/dist/js/bootstrap.min.js"></script>
