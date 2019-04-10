@@ -32,6 +32,10 @@ require_once DIR_MODEL . 'item.php';
 
 	make_token();
 
+	$get_action = get_get_data('action');
+
+	$response['items'] = sort_items($db, $get_action);
+
 	require_once DIR_VIEW  . 'top.php';
 }
 

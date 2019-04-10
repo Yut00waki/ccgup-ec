@@ -170,6 +170,7 @@ EOD;
 function item_valid_status($status) {
 	return "0" === (string)$status || "1" === (string)$status;
 }
+
 function get_max_page($db, &$response){
     $items_count = get_count_item($db);
 
@@ -182,4 +183,53 @@ function get_each_page_items($db, $page){
     return item_limit_list($db, $start_item_number);
 }
 
+function sort_new_item($db, $is_active_only = true){
+    $sql = <<<EOD
+ SELECT id, name, price, img, stock, status, create_date, update_date
+ FROM items
+EOD;
 
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    $sql .= " ORDER BY id DESC";
+    return db_select($sql, $db);
+}
+
+function sort_cheap_item($db, $is_active_only = true){
+    $sql = <<<EOD
+ SELECT id, name, price, img, stock, status, create_date, update_date
+ FROM items
+EOD;
+
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    $sql .= " ORDER BY price ASC";
+    return db_select($sql, $db);
+}
+
+function sort_expensive_item($db, $is_active_only = true){
+    $sql = <<<EOD
+ SELECT id, name, price, img, stock, status, create_date, update_date
+ FROM items
+EOD;
+
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    $sql .= " ORDER BY price DESC";
+    return db_select($sql, $db);
+}
+
+function sort_items($db, $get_action){
+    switch ($get_action) {
+        case '' :
+        case 'new_item' :
+            return sort_new_item($db);
+        case 'cheap_item' :
+            return sort_cheap_item($db);
+        case 'expensive_item'  :
+            return sort_expensive_item($db);
+    }
+}

@@ -26,6 +26,15 @@ header('X-Flame-Options:DENY');
 				<h1>商品一覧</h1>
 			</div>
 		</div>
+		<form action="<?php echo h($_SERVER['SCRIPT_NAME']); ?>" method="get">
+    		<select name="action">
+    			<option value="new_item"　<?php if($get_action === "new_item"){ echo 'selected';} ?>>最新商品</option>
+    			<option value="cheap_item" <?php if($get_action === "cheap_item"){ echo 'selected';} ?>>価格の安い順</option>
+    			<option value="expensive_item" <?php if($get_action === "expensive_item"){ echo 'selected';} ?>>価格の高い順</option>
+    		</select>
+    		<input type="submit" value="表示">
+		</form>
+
 <?php // ビューエレメントディレクトリのoutput_message.phpを参照。エラーメッセージの表示。 ?>
 <?php require DIR_VIEW_ELEMENT . 'output_message.php'; ?>
 		<div class="row">
