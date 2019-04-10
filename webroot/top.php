@@ -20,9 +20,12 @@ require_once DIR_MODEL . 'item.php';
         __regist($db, $response);
 	}
 
+	$get_action = get_get_data('action');
+
+	$response['items'] = sort_items($db, $get_action);
+
 	 make_token();
 
-	$response['items'] = item_list($db);
 	require_once DIR_VIEW  . 'top.php';
 }
 
