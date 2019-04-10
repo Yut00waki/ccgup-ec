@@ -15,7 +15,7 @@
 	<p>注文番号：<?php echo h($response['order_detail_list'][0]['order_id']); ?></p>
 	<p>購入日時：<?php echo h($response['order_detail_list'][0]['purchase_date']); ?></p>
 	<p>合計金額：<?php echo h(number_format($response['sum'])); ?>円</p>
-	<table class="text-center" border=!>
+	<table class="text-center table">
 		<tr>
 			<th>商品名</th>
 			<th>商品価格</th>

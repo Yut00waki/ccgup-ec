@@ -11,7 +11,7 @@
 	<?php require DIR_VIEW_ELEMENT . 'output_navber.php'; ?>
 	<?php require DIR_VIEW_ELEMENT . 'output_message.php'; ?>
 	<h1>購入履歴</h1>
-	<table border=1>
+	<table class="table" border=1>
 		<tr>
 			<th>注文番号</th>
 			<th>購入日時</th>
