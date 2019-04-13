@@ -17,3 +17,4 @@ define("DIR_IMG_FULL", DIR_APP . "../webroot/img/");       // 画像ディレク
 define("DIR_MODEL", DIR_APP . "model/");                // モデルのディレクトリ
 define("DIR_VIEW", DIR_APP . "view/");                  // ビューのディレクトリ
 define("DIR_VIEW_ELEMENT", DIR_VIEW . "element/");      // ビューエレメントのディレクトリ
+define("MAX", 9);  // 各ページの表示数

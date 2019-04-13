@@ -63,7 +63,32 @@ EOD;
      // $params = array();
     return db_select($sql, $db);
 }
+function get_count_item($db, $is_active_only = true) {
+    $sql = <<<EOD
+ SELECT count(*)  as count
+ FROM items
+EOD;
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    return db_select($sql, $db);
+}
+function item_limit_list($db, $start_item_number, $is_active_only = true){
+    $sql =<<<EOM
+        SELECT id, name, price, img, stock, status, create_date, update_date
+        FROM items
+        EOM;
 
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    $sql .= " LIMIT :start_item_number, :max";
+    $params = array(
+        ':start_item_number' =>  $start_item_number,
+        ':max' => MAX
+    );
+    return db_select($sql, $db, $params);
+}
 /**
  * @param PDO $db
  * @param int $id
@@ -144,6 +169,18 @@ EOD;
  */
 function item_valid_status($status) {
 	return "0" === (string)$status || "1" === (string)$status;
+}
+
+function get_max_page($db, &$response){
+    $items_count = get_count_item($db);
+
+    return ceil($items_count[0]['count'] / MAX);
+}
+
+function get_each_page_items($db, $page){
+    $start_item_number = ($page - 1) * MAX;
+
+    return item_limit_list($db, $start_item_number);
 }
 
 function sort_new_item($db, $is_active_only = true){

@@ -16,15 +16,25 @@ require_once DIR_MODEL . 'item.php';
 	$db = db_connect();
 	$response = array();
 
+	$max_page = get_max_page($db, $response);
+
+	if(isset($_GET['page']) === true){
+	    $page = $_GET['page'];
+	}else{
+	    $page = 1;
+	}
+
+	$response['items'] = get_each_page_items($db, $page);
+
 	if(is_post() && check_token($response) === true){
         __regist($db, $response);
 	}
 
+	make_token();
+
 	$get_action = get_get_data('action');
 
 	$response['items'] = sort_items($db, $get_action);
-
-	 make_token();
 
 	require_once DIR_VIEW  . 'top.php';
 }
