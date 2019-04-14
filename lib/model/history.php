@@ -70,11 +70,12 @@ function order_details_regist($db, $order_id, $item_id, $price, $amount){
 function orders_regist($db, $user_id){
     $sql=<<<EOM
             INSERT INTO orders
-            (user_id)
-            VALUES (:user_id)
+            (user_id,purchase_date)
+            VALUES (:user_id,:purchase_date)
             EOM;
     $params = array(
-        ':user_id' =>  $user_id
+        ':user_id' =>  $user_id,
+        ':purchase_date' => date('Y-m-d h:i;s')
     );
     return db_update($db, $sql, $params);
 }
