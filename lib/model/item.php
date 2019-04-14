@@ -73,6 +73,7 @@ EOD;
     }
     return db_select($sql, $db);
 }
+/*
 function item_limit_list($db, $start_item_number, $is_active_only = true){
     $sql =<<<EOM
         SELECT id, name, price, img, stock, status, create_date, update_date
@@ -89,6 +90,8 @@ function item_limit_list($db, $start_item_number, $is_active_only = true){
     );
     return db_select($sql, $db, $params);
 }
+*/
+
 /**
  * @param PDO $db
  * @param int $id
@@ -177,6 +180,7 @@ function get_max_page($db, &$response){
     return ceil($items_count[0]['count'] / MAX);
 }
 
+/*
 function get_each_page_items($db, $page){
     $start_item_number = ($page - 1) * MAX;
 
@@ -222,14 +226,35 @@ EOD;
     return db_select($sql, $db);
 }
 
-function sort_items($db, $get_action){
+*/
+
+function sort_item($db, $sort, $start_item_number, $is_active_only = true){
+    $sql = <<<EOD
+ SELECT id, name, price, img, stock, status, create_date, update_date
+ FROM items
+EOD;
+
+    if ($is_active_only) {
+        $sql .= " WHERE status = 1";
+    }
+    $sql .= " ORDER BY ".$sort ;
+    $sql .= " LIMIT " . $start_item_number . " , " . MAX;
+
+    return db_select($sql, $db);
+}
+
+
+function select_sort_items($db, $get_action, $start_item_number){
     switch ($get_action) {
         case '' :
         case 'new_item' :
-            return sort_new_item($db);
+            $sort = 'id DESC';
+            return sort_item($db, $sort, $start_item_number);
         case 'cheap_item' :
-            return sort_cheap_item($db);
+            $sort = 'price ASC';
+            return sort_item($db, $sort, $start_item_number);
         case 'expensive_item'  :
-            return sort_expensive_item($db);
+            $sort = 'price DESC';
+            return sort_item($db, $sort, $start_item_number);
     }
 }

@@ -18,17 +18,15 @@ require_once DIR_MODEL . 'item.php';
 
 	$max_page = get_max_page($db, $response);
 
-	$get_action = get_get_data('action');
-
-	$response['items'] = sort_items($db, $get_action);
-
 	if(isset($_GET['page']) === true){
 	    $page = $_GET['page'];
 	}else{
 	    $page = 1;
 	}
+	$start_item_number = ($page - 1) * MAX;
+	$get_action = get_get_data('action');
 
-	$response['items'] = get_each_page_items($db, $page);
+	$response['items'] = select_sort_items($db, $get_action, $start_item_number);
 
 	if(is_post() && check_token($response) === true){
         __regist($db, $response);
