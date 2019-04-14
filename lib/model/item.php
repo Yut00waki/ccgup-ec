@@ -78,7 +78,7 @@ function item_limit_list($db, $start_item_number, $is_active_only = true){
     $sql =<<<EOM
         SELECT id, name, price, img, stock, status, create_date, update_date
         FROM items
-        EOM;
+EOM;
 
     if ($is_active_only) {
         $sql .= " WHERE status = 1";
