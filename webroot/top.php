@@ -23,10 +23,10 @@ require_once DIR_MODEL . 'item.php';
 	}else{
 	    $page = 1;
 	}
-	$start_item_number = ($page - 1) * MAX;
+	// $start_item_number = start_item_number($page);
 	$get_action = get_get_data('action');
 
-	$response['items'] = select_sort_items($db, $get_action, $start_item_number);
+	$response['items'] = select_sort_items($db, $get_action, $page);
 
 	if(is_post() && check_token($response) === true){
         __regist($db, $response);
