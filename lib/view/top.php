@@ -68,17 +68,17 @@ header('X-Flame-Options:DENY');
 	</div>
 	<div class="text-center margin_top">
 	<?php if($page > 1){ ?>
-	<a class="btn btn-primary cart-btn" href="./top.php?page=<?php echo h($page - 1); ?>">前へ</a>
+	<a class="btn btn-primary cart-btn" href="./top.php?page=<?php echo h($page - 1); ?>&action=<?php echo h($get_action); ?>">前へ</a>
 	<?php  } ?>
 	<?php for($p=1;$p<=$max_page;$p++){ ?>
 		<?php if($p === (int)$page){ ?>
 			<div class="btn btn-info cart-btn"><?php echo h($p); ?></div>
 		<?php }else{  ?>
-			<a class="btn btn-primary cart-btn" href="./top.php?page=<?php echo h($p); ?>"><?php echo h($p); ?></a>
+			<a class="btn btn-primary cart-btn" href="./top.php?page=<?php echo h($p); ?>&action=<?php echo h($get_action); ?>"><?php echo h($p); ?></a>
 		<?php  } ?>
 	<?php  } ?>
 	<?php if($page < $max_page){ ?>
-	<a class="btn btn-primary cart-btn" href="./top.php?page=<?php echo h($page + 1); ?>">次へ</a>
+	<a class="btn btn-primary cart-btn" href="./top.php?page=<?php echo h($page + 1); ?>&action=<?php echo h($get_action); ?>">次へ</a>
 	<?php  } ?>
 	</div>
 	<!-- /.container -->
